@@ -1,189 +1,8 @@
 <template>
   <div class="main-form">
-    <div v-if="cities.length" class="search">
-      <!--Make a component -->
-      <h3>Searching within:</h3>
-      <h2>{{ locations[0].title }}</h2>
-      <div class="break" />
-      <div class="info">
-        <div clas="sort">
-          <!--Make a component -->
-          <div class="sort-label">
-            <h3>Sort by:</h3>
-            <button v-if="collapseSort" @click="toggleSortCollapse">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <button v-else @click="toggleSortCollapse">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-          <div v-if="collapseSort" class="content">
-            <div>
-              <input type="radio" id="cost" value="cost" v-model="sortValue" />
-              <label for="cost">Cost</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="rating"
-                value="rating"
-                v-model="sortValue"
-              />
-              <label for="rating">Rating</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="real_distance"
-                value="real_distance"
-                v-model="sortValue"
-              />
-              <label for="real_distance">Distance</label>
-            </div>
-          </div>
-        </div>
-        <div class="break" />
-        <div class="radius">
-          <!--Make a component -->
-          <div class="radius-label">
-            <h3>Distance:</h3>
-            <button v-if="collapseRadius" @click="toggleRadiusCollapse">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <button v-else @click="toggleRadiusCollapse">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-          <div v-if="collapseRadius" class="content">
-            <select v-model="selectRadius">
-              <option disabled value="">Please select one</option>
-              <option>5 mi.</option>
-              <option>10 mi.</option>
-              <option>15 mi.</option>
-              <option>20 mi.</option>
-            </select>
-          </div>
-        </div>
-        <div class="break" />
-        <div class="categories">
-          <!--Make a component -->
-          <div class="categories-label">
-            <h3>Categories:</h3>
-            <button v-if="collapseCategories" @click="toggleCategoryCollapse">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <button v-else @click="toggleCategoryCollapse">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-          <div v-if="collapseCategories" class="content">
-            <button v-if="checkedToggleCategories" @click="selectAllCat">
-              <i class="fas fa-check-square"></i> Select All
-            </button>
-            <button v-else @click="selectNoneCat">
-              <i class="fas fa-times"></i> Select None
-            </button>
-            <div class="category-list">
-              <!--Make a component -->
-              <template v-for="(category, index) in categories">
-                <div class="list-item" v-bind:key="index">
-                  <input
-                    class="checkbox"
-                    type="checkbox"
-                    v-bind:id="category.categories.id"
-                    v-bind:value="category.categories.id"
-                    v-model="checkedCategories"
-                  />
-                  <label v-bind:for="category.categories.id">{{
-                    category.categories.name
-                  }}</label>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="break" />
-        <div class="establishments">
-          <!--Make a component -->
-          <div class="establishments-label">
-            <h3>Establishments:</h3>
-            <button
-              v-if="collapseEstablishments"
-              @click="toggleEstablishmentCollapse"
-            >
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <button v-else @click="toggleEstablishmentCollapse">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-          <div v-if="collapseEstablishments" class="content">
-            <button v-if="checkedToggleEstablishments" @click="selectAllEst">
-              <i class="fas fa-check-square"></i> Select All
-            </button>
-            <button v-else @click="selectNoneEst">
-              <i class="fas fa-times"></i> Select None
-            </button>
-            <div class="establishment-list">
-              <!--Make a component -->
-              <template v-for="(establishment, index) in establishments">
-                <div class="list-item" v-bind:key="index">
-                  <input
-                    class="checkbox"
-                    type="checkbox"
-                    v-bind:id="establishment.establishment.id"
-                    v-bind:value="establishment.establishment.id"
-                    v-model="checkedEstablishments"
-                  />
-                  <label v-bind:for="establishment.establishment.id">{{
-                    establishment.establishment.name
-                  }}</label>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="break" />
-        <div class="cuisines">
-          <!--Make a component -->
-          <div class="cuisine-label">
-            <h3>Cuisines:</h3>
-            <button v-if="collapseCuisines" @click="toggleCuisineCollapse">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <button v-else @click="toggleCuisineCollapse">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-          <div v-if="collapseCuisines" class="content">
-            <button v-if="checkedToggle" @click="selectAll">
-              <i class="fas fa-check-square"></i> Select All
-            </button>
-            <button v-else @click="selectNone">
-              <i class="fas fa-times"></i> Select None
-            </button>
-            <div class="cuisine-list">
-              <!--Make a component -->
-              <template v-for="(cuisine, index) in cuisines">
-                <div class="list-item" v-bind:key="index">
-                  <input
-                    class="checkbox"
-                    type="checkbox"
-                    v-bind:id="cuisine.cuisine.cuisine_id"
-                    v-bind:value="cuisine.cuisine.cuisine_id"
-                    v-model="checkedCuisines"
-                  />
-                  <label v-bind:for="cuisine.cuisine.cuisine_id">{{
-                    cuisine.cuisine.cuisine_name
-                  }}</label>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <SearchSideBar v-bind:cities="cities" v-bind:locations="locations" />
     <div class="form">
+      <!-- MAKE A COMPONENT! -->
       <div v-if="cities.length">
         <h3>Here's your most likely location based on our data:</h3>
         <h2>{{ locations[0].title }}</h2>
@@ -201,25 +20,33 @@
           >
         </select>
         <button @click="rechoose"><i class="fas fa-redo"></i> Rechoose</button>
-        <div class="cuisine-label">
-          <h2>Popular Cuisines:</h2>
+        <div class="pop-cuisine-choices">
+          <!-- MAKE A COMPONENT! -->
+          <div class="cuisine-label">
+            <h2>Popular Cuisines:</h2>
+          </div>
+          <div class="popular-cuisines">
+            <template v-for="(cuisine, index) in locationDetails.top_cuisines">
+              <div class="fancy-cuisine" v-bind:key="index">
+                <h3>{{ cuisine }}</h3>
+              </div>
+            </template>
+          </div>
         </div>
-        <div class="popular-cuisines">
-          <template v-for="(cuisine, index) in locationDetails.top_cuisines">
-            <div class="fancy-cuisine" v-bind:key="index">
-              <h3>{{ cuisine }}</h3>
-            </div>
-          </template>
-        </div>
-        <div class="best-restaurant-label">
-          <h1>Best Restaurants in the Area:</h1>
-        </div>
-        <div class="best-restaurants">
-          <RestaurantSmall
-            v-for="(restaurant, index) in locationDetails.best_rated_restaurant"
-            v-bind:key="index"
-            v-bind:restaurant="restaurant"
-          />
+
+        <div class="restaurant-list">
+          <!-- MAKE A COMPONENT! -->
+          <div class="best-restaurant-label">
+            <h1>Best Restaurants in the Area:</h1>
+          </div>
+          <div class="best-restaurants">
+            <RestaurantSmall
+              v-for="(restaurant,
+              index) in locationDetails.best_rated_restaurant"
+              v-bind:key="index"
+              v-bind:restaurant="restaurant"
+            />
+          </div>
         </div>
       </div>
       <RedoCity v-else />
@@ -229,6 +56,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import SearchSideBar from "./SearchSideBar";
 import RestaurantSmall from "./RestaurantSmall.vue";
 import RedoCity from "./RedoCity.vue";
 export default {
@@ -273,24 +101,20 @@ export default {
     }
   },
   computed: mapState({
-    categories: state => state.zomato.categories,
     cities: state => state.zomato.cities,
     geoLocation: state => state.zomato.geoLocation,
     collections: state => state.zomato.collections,
     cuisines: state => state.zomato.cuisines,
-    establishments: state => state.zomato.establishments,
     locations: state => state.zomato.locations,
     locationDetails: state => state.zomato.locationDetails
   }),
   methods: {
     ...mapActions("zomato", [
-      "getCategories",
       "getCurrentLocations",
       "getPossibleCities",
       "getGeoLocation",
       "getCollections",
       "getCuisines",
-      "getEstablishments",
       "getCurrentLocationDetails"
     ]),
     getLocation: function() {
@@ -332,34 +156,6 @@ export default {
       this.checkedCuisines = [];
       this.checkedToggle = !this.checkedToggle;
     },
-    selectAllCat: function() {
-      const allIds = this.categories.map(category => {
-        return category.categories.id;
-      });
-      this.checkedCategories = allIds;
-      this.checkedToggleCategories = !this.checkedToggleCategories;
-    },
-    selectNoneCat: function() {
-      this.checkedCategories = [];
-      this.checkedToggleCategories = !this.checkedToggleCategories;
-    },
-    toggleCategoryCollapse: function() {
-      this.collapseCategories = !this.collapseCategories;
-    },
-    selectAllEst: function() {
-      const allIds = this.establishments.map(establishment => {
-        return establishment.establishment.id;
-      });
-      this.checkedEstablishments = allIds;
-      this.checkedToggleEstablishments = !this.checkedToggleEstablishments;
-    },
-    selectNoneEst: function() {
-      this.checkedEstablishments = [];
-      this.checkedToggleEstablishments = !this.checkedToggleEstablishments;
-    },
-    toggleEstablishmentCollapse: function() {
-      this.collapseEstablishments = !this.collapseEstablishments;
-    },
     toggleCuisineCollapse: function() {
       this.collapseCuisines = !this.collapseCuisines;
     },
@@ -370,7 +166,7 @@ export default {
       this.collapseRadius = !this.collapseRadius;
     }
   },
-  components: { RestaurantSmall, RedoCity }
+  components: { RestaurantSmall, RedoCity, SearchSideBar }
 };
 </script>
 
