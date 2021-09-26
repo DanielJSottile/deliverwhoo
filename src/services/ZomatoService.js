@@ -11,50 +11,24 @@ export const queryBuilder = params => {
   return "?".concat(qs);
 };
 
-export const getCategories = () => {
-  return doGet(baseUrl, `${serviceUrl}/categories`);
-};
-
-export const getCities = params => {
-  return doGet(baseUrl, `${serviceUrl}/cities`, queryBuilder(params));
-};
-
-export const getCollections = params => {
-  return doGet(baseUrl, `${serviceUrl}/collections`, queryBuilder(params));
-};
-
-export const getCuisines = params => {
-  return doGet(baseUrl, `${serviceUrl}/cuisines`, queryBuilder(params));
-};
-
-export const getEstablishments = params => {
-  return doGet(baseUrl, `${serviceUrl}/establishments`, queryBuilder(params));
-};
-
-export const getGeocode = params => {
-  return doGet(baseUrl, `${serviceUrl}/geocode`, queryBuilder(params));
-};
-
-export const getLocationDetails = params => {
-  return doGet(baseUrl, `${serviceUrl}/location_details`, queryBuilder(params));
-};
-
-export const getLocations = params => {
-  return doGet(baseUrl, `${serviceUrl}/locations`, queryBuilder(params));
-};
-
-export const getDailyMenu = params => {
-  return doGet(baseUrl, `${serviceUrl}/dailymenu`, queryBuilder(params));
-};
-
-export const getRestaurant = params => {
-  return doGet(baseUrl, `${serviceUrl}/restaurant`, queryBuilder(params));
-};
-
-export const getReviews = params => {
-  return doGet(baseUrl, `${serviceUrl}/reviews`, queryBuilder(params));
-};
-
-export const getSearch = params => {
-  return doGet(baseUrl, `${serviceUrl}/search`, queryBuilder(params));
+/* 
+categories
+cities
+collections
+cuisines
+establishments
+geocode
+location_details
+locations
+dailymenu
+restaurant
+reviews
+search
+*/
+export const getData = (queryBy, params) => {
+  return doGet(
+    baseUrl,
+    `${serviceUrl}/${queryBy}`,
+    params && queryBuilder(params)
+  );
 };
