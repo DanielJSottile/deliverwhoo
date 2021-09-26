@@ -1,17 +1,5 @@
-import {
-  getCategories,
-  getCities,
-  getCollections,
-  getCuisines,
-  getEstablishments,
-  getGeocode,
-  getLocationDetails,
-  getLocations,
-  getDailyMenu,
-  getRestaurant,
-  getReviews,
-  getSearch
-} from "../../services/ZomatoService";
+import { getData } from "../../services/ZomatoService";
+import { GET_STRINGS } from "../../utils/constants";
 
 const state = () => ({
   cities: [],
@@ -34,49 +22,49 @@ const getters = {};
 
 const actions = {
   getCategories({ commit }) {
-    getCategories().then(data => {
+    getData(GET_STRINGS.categories).then(data => {
       commit("setCategories", data.categories);
     });
   },
 
   getPossibleCities({ commit }, query) {
-    getCities(query).then(data => {
+    getData(GET_STRINGS.cities, query).then(data => {
       commit("setPossibleCities", data.location_suggestions);
     });
   },
 
   getCurrentCollections({ commit }, query) {
-    getCollections(query).then(data => {
+    getData(GET_STRINGS.collections, query).then(data => {
       commit("setCurrentCollections", data.collections);
     });
   },
 
   getCurrentCuisines({ commit }, query) {
-    getCuisines(query).then(data => {
+    getData(GET_STRINGS.cuisines, query).then(data => {
       commit("setCurrentCuisines", data.cuisines);
     });
   },
 
   getCurrentEstablishments({ commit }, query) {
-    getEstablishments(query).then(data => {
+    getData(GET_STRINGS.establishments, query).then(data => {
       commit("setCurrentEstablishments", data.establishments);
     });
   },
 
   getCurrentRestaurant({ commit }, query) {
-    getRestaurant(query).then(data => {
+    getData(GET_STRINGS.restaurant, query).then(data => {
       commit("setCurrentRestaurant", data);
     });
   },
 
   getCurrentDailyMenu({ commit }, query) {
-    getDailyMenu(query).then(data => {
+    getData(GET_STRINGS.dailyMenu, query).then(data => {
       commit("setCurrentDailyMenu", data);
     });
   },
 
   getCurrentReviews({ commit }, query) {
-    getReviews(query).then(data => {
+    getData(GET_STRINGS.reviews, query).then(data => {
       commit("setCurrentReviews", data);
     });
   },
@@ -88,25 +76,25 @@ const actions = {
   },
 
   getCurrentGeoCode({ commit }, query) {
-    getGeocode(query).then(data => {
+    getData(GET_STRINGS.geocode, query).then(data => {
       commit("setCurrentGeoCode", data);
     });
   },
 
   getCurrentLocations({ commit }, query) {
-    getLocations(query).then(data => {
+    getData(GET_STRINGS.locations, query).then(data => {
       commit("setCurrentLocations", data.location_suggestions);
     });
   },
 
   getCurrentLocationDetails({ commit }, query) {
-    getLocationDetails(query).then(data => {
+    getData(GET_STRINGS.locationDetails, query).then(data => {
       commit("setCurrentLocationDetails", data);
     });
   },
 
   getCurrentSearchResults({ commit }, query) {
-    getSearch(query).then(data => {
+    getData(GET_STRINGS.search, query).then(data => {
       commit("setCurrentSearchResults", data);
     });
   }
